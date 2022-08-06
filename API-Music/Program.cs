@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ArtistRepository>();
+builder.Services.AddScoped<AlbumRepository>();
 
 var app = builder.Build();
 
