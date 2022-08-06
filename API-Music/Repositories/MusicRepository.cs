@@ -25,6 +25,8 @@ namespace API_Music.Api.Repositories
             Music existingMusic = _musics
                 .FirstOrDefault(music => music.Id == id);
 
+            if (existingMusic == null) return null;
+
             existingMusic.Artist = music.Artist;
             existingMusic.Album = music.Album;
             existingMusic.Duration = music.Duration;
@@ -38,18 +40,14 @@ namespace API_Music.Api.Repositories
         }
         public Music Get(int id)
         {
-            Music music = _musics
-                .FirstOrDefault(music => music.Id == id);
-
-            return music;
+            return _musics.FirstOrDefault(music => music.Id == id);
         }
-        public List<Music> GetWithFilter(string filter)
+        public List<Music> GetMusicFromAlbum(int albumId)
         {
-            List<Music> list = _musics
-                .Where(m => m.Name.Contains(filter) || m.Album.Name.Contains(filter) || m.Artist.Name.Contains(filter))
+            return _musics
+                .Where(m => m.Album != null)
+                .Where(m => m.Album.Id == albumId)
                 .ToList();
-
-            return list;
         }
     }
 }

@@ -32,5 +32,13 @@ namespace API_Music.Api.Repositories
 
             return album;
         }
+        public List<Album> Get()
+        {
+            return _albums;
+        }
+        public Album Get(int id)
+        {
+            return _albums.FirstOrDefault(a => a.Id == id);
+        }
     }
 }

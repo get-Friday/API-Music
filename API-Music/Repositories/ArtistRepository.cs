@@ -34,7 +34,7 @@ namespace API_Music.Api.Repositories
 
             _artists.Remove(existingArtist);
         }
-        public List<Artist> GetAll(string filter = null)
+        public List<Artist> Get(string filter = null)
         {
 
             if (!String.IsNullOrEmpty(filter))
@@ -45,6 +45,11 @@ namespace API_Music.Api.Repositories
             }
 
             return _artists;
+        }
+        public Artist GetById(int id)
+        {
+            return _artists
+                .FirstOrDefault(a => a.Id == id);
         }
     }
 }
