@@ -4,11 +4,11 @@ namespace API_Music.Api.Repositories
 {
     public class ArtistRepository
     {
-        private static int indexId = 1;
-        private static List<Artist> _artists = new();
+        private static int _indexId = 1;
+        private static readonly List<Artist> _artists = new();
         public Artist Create(Artist artist)
         {
-            artist.Id = indexId++;
+            artist.Id = _indexId++;
             _artists.Add(artist);
 
             return artist;
