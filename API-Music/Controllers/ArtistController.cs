@@ -19,7 +19,7 @@ namespace API_Music.Controllers
             [FromQuery] string name
         )
         {
-            return Ok(_artistRepository.GetAll(name));
+            return Ok(_artistRepository.Get(name));
         }
 
         [HttpPost]
