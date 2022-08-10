@@ -13,7 +13,7 @@ namespace API_Music.Api.Repositories
 
             return music;
         }
-        public void Delete(int id, Music music)
+        public void Delete(int id)
         {
             Music existingMusic = _musics
                 .FirstOrDefault(music => music.Id == id);
