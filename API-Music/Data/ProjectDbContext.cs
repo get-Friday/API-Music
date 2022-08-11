@@ -68,6 +68,33 @@ namespace API_Music.Data
                 .HasOne<Artist>(m => m.Artist)
                 .WithMany(a => a.Musics)
                 .HasForeignKey(m => m.Id);
+
+            modelBuilder.Entity<Music>()
+                .HasOne<Album>(m => m.Album)
+                .WithMany(a => a.Musics)
+                .HasForeignKey(m => m.AlbumId);
+
+            // Album
+            modelBuilder.Entity<Album>().ToTable("Album");
+            modelBuilder.Entity<Album>().HasKey(a => a.Id);
+            modelBuilder.Entity<Album>()
+                .Property(a => a.Name)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            modelBuilder.Entity<Album>()
+                .Property(a => a.YearLaunch);
+
+            modelBuilder.Entity<Album>()
+                .Property(a => a.CoverUrl);
+
+            modelBuilder.Entity<Album>()
+                .Property(a => a.Artist);
+
+            modelBuilder.Entity<Album>()
+                .HasOne<Artist>(album => album.Artist)
+                .WithMany(artist => artist.Albums)
+                .HasForeignKey(album => album.Id);
         }
     }
 }
