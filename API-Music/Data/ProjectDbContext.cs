@@ -67,7 +67,7 @@ namespace API_Music.Data
             modelBuilder.Entity<Music>()
                 .HasOne<Artist>(m => m.Artist)
                 .WithMany(a => a.Musics)
-                .HasForeignKey(m => m.Id);
+                .HasForeignKey(m => m.ArtistId);
 
             modelBuilder.Entity<Music>()
                 .HasOne<Album>(m => m.Album)
@@ -94,7 +94,7 @@ namespace API_Music.Data
             modelBuilder.Entity<Album>()
                 .HasOne<Artist>(album => album.Artist)
                 .WithMany(artist => artist.Albums)
-                .HasForeignKey(album => album.Id);
+                .HasForeignKey(album => album.ArtistId);
         }
     }
 }
