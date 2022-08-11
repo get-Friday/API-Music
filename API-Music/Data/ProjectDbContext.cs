@@ -22,5 +22,32 @@ namespace API_Music.Data
 
             optionsBuilder.UseSqlServer(_configuration.GetConnectionString("CONECTION_DATABASE"));
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Artist
+            modelBuilder.Entity<Artist>()
+                .ToTable("Artist");
+
+            modelBuilder.Entity<Artist>()
+                .HasKey(a => a.Id);
+
+            modelBuilder.Entity<Artist>()
+                .Property(a => a.Name)
+                .HasMaxLength(60)
+                .IsRequired();
+
+            modelBuilder.Entity<Artist>()
+                .Property(a => a.Alias)
+                .HasMaxLength(200);
+
+            modelBuilder.Entity<Artist>()
+                .Property(a => a.PhotoUrl);
+
+            modelBuilder.Entity<Artist>()
+                .Property(a => a.CountryFrom);
+        }
     }
 }
