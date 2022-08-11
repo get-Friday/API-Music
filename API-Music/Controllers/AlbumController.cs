@@ -23,7 +23,7 @@ namespace API_Music.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Album> Get()
+        public ActionResult<List<Album>> Get()
         {
             return Ok(_albumRepository.Get());
         }
