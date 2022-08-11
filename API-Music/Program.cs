@@ -1,4 +1,5 @@
 using API_Music.Api.Repositories;
+using API_Music.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ArtistRepository>();
 builder.Services.AddScoped<AlbumRepository>();
+builder.Services.AddDbContext<ProjectDbContext>();
 
 var app = builder.Build();
 
