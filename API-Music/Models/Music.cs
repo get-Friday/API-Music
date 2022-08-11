@@ -8,7 +8,6 @@ namespace API_Music.Models
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
         public Album Album { get; set; }
-        [Required(ErrorMessage = "Artista é obrigatório.")]
         public Artist Artist { get; set; }
     }
 }

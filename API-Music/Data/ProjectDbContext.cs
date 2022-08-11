@@ -28,12 +28,8 @@ namespace API_Music.Data
             base.OnModelCreating(modelBuilder);
 
             // Artist
-            modelBuilder.Entity<Artist>()
-                .ToTable("Artist");
-
-            modelBuilder.Entity<Artist>()
-                .HasKey(a => a.Id);
-
+            modelBuilder.Entity<Artist>().ToTable("Artist");
+            modelBuilder.Entity<Artist>().HasKey(a => a.Id);
             modelBuilder.Entity<Artist>()
                 .Property(a => a.Name)
                 .HasMaxLength(60)
@@ -48,6 +44,25 @@ namespace API_Music.Data
 
             modelBuilder.Entity<Artist>()
                 .Property(a => a.CountryFrom);
+
+            // Music
+            modelBuilder.Entity<Music>().ToTable("Music");
+            modelBuilder.Entity<Music>().HasKey(m => m.Id);
+            modelBuilder.Entity<Music>()
+                .Property(m => m.Name)
+                .HasMaxLength(120)
+                .IsRequired();
+
+            modelBuilder.Entity<Music>()
+                .Property(m => m.Duration)
+                .IsRequired();
+
+            modelBuilder.Entity<Music>()
+                .Property(m => m.Album);
+
+            modelBuilder.Entity<Music>()
+                .Property(m => m.Artist)
+                .IsRequired();
         }
     }
 }
