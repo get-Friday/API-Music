@@ -63,6 +63,11 @@ namespace API_Music.Data
             modelBuilder.Entity<Music>()
                 .Property(m => m.Artist)
                 .IsRequired();
+
+            modelBuilder.Entity<Music>()
+                .HasOne<Artist>(m => m.Artist)
+                .WithMany(a => a.Musics)
+                .HasForeignKey(m => m.Id);
         }
     }
 }
