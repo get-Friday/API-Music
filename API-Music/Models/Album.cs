@@ -10,7 +10,6 @@ namespace API_Music.Models
         public int YearLaunch { get; set; }
         public string CoverUrl { get; set; }
         public Artist Artist { get; set; }
-
         public List<Music> Musics { get; set; }
         public Album()
         {
