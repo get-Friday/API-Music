@@ -5,16 +5,14 @@ namespace API_Music.Data
 {
     public class ProjectDbContext : DbContext
     {
-        private IConfiguration _configuration;
-
+        public DbSet<Artist> Artists { get; set; }
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Music> Musics { get; set; }
+        private readonly IConfiguration _configuration;
         public ProjectDbContext(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
-        public DbSet<Artist> Artists { get; set; }
-        public DbSet<Album> Albums { get; set; }
-        public DbSet<Music> Musics { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
