@@ -1,5 +1,7 @@
 ﻿using API_Music.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.Xml;
+using System.Xml.Linq;
 
 namespace API_Music.Data
 {
@@ -83,6 +85,18 @@ namespace API_Music.Data
                 .HasOne<Artist>(album => album.Artist)
                 .WithMany(artist => artist.Albums)
                 .HasForeignKey(album => album.ArtistId);
+
+            modelBuilder.Entity<Artist>()
+                .HasData(new[] {
+                    new Artist
+                    {
+                        Id = 1,
+                        Name = "Eminem",
+                        Alias = "Slim shady",
+                        PhotoUrl = "https://en.wikipedia.org/wiki/File:Eminem_-_Concert_for_Valor_in_Washington,_D.C._Nov._11,_2014_(2)_(Cropped).jpg",
+                        CountryFrom = "United States of America",
+                    }
+                });
         }
     }
 }
