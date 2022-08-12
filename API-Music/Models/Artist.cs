@@ -11,7 +11,7 @@ namespace API_Music.Models
         public string PhotoUrl { get; set; }
         public string CountryFrom { get; set; }
 
-        public List<Album> Albums { get; set; }
-        public List<Music> Musics { get; set; }
+        public virtual List<Album> Albums { get; set; }
+        public virtual List<Music> Musics { get; set; }
     }
 }

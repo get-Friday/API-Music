@@ -1,6 +1,10 @@
 ﻿using API_Music.Api.Repositories;
+using API_Music.Data;
+using API_Music.DTOs;
 using API_Music.Models;
+using API_Music.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 
 namespace API_Music.Controllers
 {
@@ -8,43 +12,88 @@ namespace API_Music.Controllers
     [Route("api/artists")]
     public class ArtistController : Controller
     {
-        private readonly ArtistRepository _artistRepository;
-        public ArtistController(ArtistRepository repository)
+        private readonly ProjectDbContext _context;
+        public ArtistController(ProjectDbContext context)
         {
-            _artistRepository = repository;
+            _context = context;
         }
 
         [HttpGet]
-        public ActionResult<Artist> Get(
-            [FromQuery] string name
+        public ActionResult<Artist> Get()
+        {
+            return Ok(_context.Artists.ToList());
+        }
+
+        [HttpGet]
+        public ActionResult<Artist> GetById(
+            [FromRoute] int id    
         )
         {
-            return Ok(_artistRepository.Get(name));
+            Artist query = _context.Artists
+                .ToList()
+                .Find(a => a.Id == id);
+
+            if (query == null) return NotFound(new FailedReturnViewModel("Artista não encontrado"));
+
+            return Ok(query);
         }
 
         [HttpPost]
         public ActionResult<Artist> Post(
-            [FromBody] Artist newArtist    
+            [FromBody] ArtistDTO newArtist    
         )
         {
-            return Created("/api/artists", _artistRepository.Create(newArtist));
+            if (_context.Artists.Any(a => a.Name == newArtist.Name))
+            {
+                return BadRequest(new FailedReturnViewModel("Artista com esse nome já existente."));
+            }
+
+            Artist artist = new()
+            {
+                Name = newArtist.Name,
+                Alias = newArtist.Alias,
+                PhotoUrl = newArtist.PhotoUrl,
+                CountryFrom = newArtist.CountryFrom
+            };
+
+            _context.Artists.Add(artist);
+
+            _context.SaveChanges();
+
+            return Created("/api/artists", artist);
         }
 
         [HttpPut("{idArtist}")]
         public ActionResult<Artist> Put(
-            [FromBody] Artist artist,    
-            [FromRoute] int idArtist
+            [FromBody] ArtistDTO artist,    
+            [FromRoute] int id
         )
         {
-            return Ok(_artistRepository.Update(idArtist, artist));
+            Artist query = _context.Artists.Find(id);
+
+            if (query == null) return NotFound(new FailedReturnViewModel("Artista não encontrado"));
+
+            query.Name = artist.Name;
+            query.Alias = artist.Alias;
+            query.PhotoUrl = artist.PhotoUrl;
+            query.CountryFrom = artist.CountryFrom;
+
+            _context.SaveChanges();
+
+            return Ok(query);
         }
 
         [HttpDelete("{idArtist}")]
         public ActionResult Delete(
-            [FromRoute] int idArtist
+            [FromRoute] int id
         )
         {
-            _artistRepository.Delete(idArtist);
+            Artist query = _context.Artists.Find(id);
+
+            if (query == null) return NotFound(new FailedReturnViewModel("Artista não encontrado"));
+
+            _context.Artists.Remove(query);
+            _context.SaveChanges();
 
             return NoContent();
         }
