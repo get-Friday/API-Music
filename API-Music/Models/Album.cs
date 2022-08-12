@@ -12,6 +12,9 @@ namespace API_Music.Models
         public Artist Artist { get; set; }
 
         public List<Music> Musics { get; set; }
+        public Album()
+        {
+        }
         public Album(string name, int yearLaunch, string coverUrl, Artist artist)
         {
             Name = name;
