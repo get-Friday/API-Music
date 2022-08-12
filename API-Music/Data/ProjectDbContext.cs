@@ -58,13 +58,6 @@ namespace API_Music.Data
                 .IsRequired();
 
             modelBuilder.Entity<Music>()
-                .Property(m => m.Album);
-
-            modelBuilder.Entity<Music>()
-                .Property(m => m.Artist)
-                .IsRequired();
-
-            modelBuilder.Entity<Music>()
                 .HasOne<Artist>(m => m.Artist)
                 .WithMany(a => a.Musics)
                 .HasForeignKey(m => m.ArtistId);
@@ -87,9 +80,6 @@ namespace API_Music.Data
 
             modelBuilder.Entity<Album>()
                 .Property(a => a.CoverUrl);
-
-            modelBuilder.Entity<Album>()
-                .Property(a => a.Artist);
 
             modelBuilder.Entity<Album>()
                 .HasOne<Artist>(album => album.Artist)
