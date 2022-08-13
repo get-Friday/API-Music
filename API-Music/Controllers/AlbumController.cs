@@ -1,5 +1,7 @@
-﻿using API_Music.DTOs;
+﻿using API_Music.Data;
+using API_Music.DTOs;
 using API_Music.Models;
+using API_Music.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Music.Controllers
@@ -8,27 +10,39 @@ namespace API_Music.Controllers
     [Route("api/albums")]
     public class AlbumController : Controller
     {
-       /*
+        protected readonly ProjectDbContext _context;
+        public AlbumController(ProjectDbContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet]
         public ActionResult<List<Album>> Get()
         {
-            return Ok(_albumRepository.Get());
+            return Ok(_context.Albums);
         }
 
-        [HttpGet("{albumId}/musics")]
-        public ActionResult<Music> GetMusicByAlbumId(
-            [FromRoute] int albumId    
+        
+        [HttpGet("{id}/musics")]
+        public ActionResult<List<Music>> GetMusicsByAlbumId(
+            [FromRoute] int id
         )
         {
-            return Ok(_musicRepository.GetMusicFromAlbum(albumId));
-        }
+            Album query = _context.Albums.Find(id);
 
+            if (query == null) return NotFound(new FailedReturnViewModel("Album não encontrado"));
+
+            return Ok(query.Musics.ToList());
+        }
+        
         [HttpPost]
         public ActionResult<Album> Post(
             [FromBody] AlbumDTO albumObject  
         )
         {
-            Artist artist = _artistRepository.GetById(albumObject.ArtistId);
+            Artist artist = _context.Artists.Find(albumObject.ArtistId);
+
+            if (artist == null) return NotFound(new FailedReturnViewModel("Artista não encontrado"));
 
             Album album = new(
                 albumObject.Name,
@@ -37,41 +51,48 @@ namespace API_Music.Controllers
                 artist
             );
 
-            _albumRepository.Create(album);
+            _context.Albums.Add(album);
+            _context.SaveChanges();
 
             return Created("api/albums", album);
         }
-
-        [HttpPut("{idAlbum}")]
+        
+        [HttpPut("{id}")]
         public ActionResult<Album> Put(
             [FromBody] AlbumDTO albumObject,
-            [FromRoute] int albumId
+            [FromRoute] int id
         )
         {
-            Artist artist = _artistRepository.GetById(albumObject.ArtistId);
+            Artist artist = _context.Artists.Find(albumObject.ArtistId);
 
-            Album updatedAlbum = _albumRepository.Update(
-                    albumId, 
-                    new Album(
-                        albumObject.Name,
-                        albumObject.YearLaunch,
-                        albumObject.CoverUrl,
-                        artist
-                    )
-                );
+            if (artist == null) return NotFound(new FailedReturnViewModel("Artista não encontrado"));
 
-            return Ok(updatedAlbum);
+            Album album = _context.Albums.Find(id);
+
+            if (album == null) return NotFound(new FailedReturnViewModel("Album não encontrado"));
+
+            album.Name = albumObject.Name;
+            album.YearLaunch = albumObject.YearLaunch;
+            album.CoverUrl = albumObject.CoverUrl;
+            album.Artist = artist;
+
+            _context.SaveChanges();
+
+            return Ok(album);
         }
-
-        [HttpDelete("{idAlbum}")]
+        
+        [HttpDelete("{id}")]
         public ActionResult Delete(
-            [FromRoute] int albumId
+            [FromRoute] int id
         )
         {
-            _albumRepository.Delete(albumId);
+            Album query = _context.Albums.Find(id);
+
+            if (query == null) return NotFound(new FailedReturnViewModel("Album não encontrado"));
+
+            _context.Albums.Remove(query);
 
             return NoContent();
         }
-       */
     }
 }
