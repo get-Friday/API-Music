@@ -1,4 +1,3 @@
-using API_Music.Api.Repositories;
 using API_Music.Data;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,10 +1,8 @@
-﻿using API_Music.Api.Repositories;
-using API_Music.Data;
+﻿using API_Music.Data;
 using API_Music.DTOs;
 using API_Music.Models;
 using API_Music.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 
 namespace API_Music.Controllers
 {

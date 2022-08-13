@@ -136,7 +136,7 @@ namespace API_Music.Data.Migrations
                     b.HasOne("API_Music.Models.Album", "Album")
                         .WithMany("Musics")
                         .HasForeignKey("AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API_Music.Models.Artist", "Artist")

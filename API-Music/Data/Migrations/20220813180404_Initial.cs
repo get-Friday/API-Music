@@ -66,7 +66,7 @@ namespace API_Music.Data.Migrations
                         column: x => x.AlbumId,
                         principalTable: "Album",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Music_Artist_ArtistId",
                         column: x => x.ArtistId,
@@ -74,6 +74,11 @@ namespace API_Music.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Artist",
+                columns: new[] { "Id", "Alias", "CountryFrom", "Name", "PhotoUrl" },
+                values: new object[] { 1, "Slim shady", "United States of America", "Eminem", "https://en.wikipedia.org/wiki/File:Eminem_-_Concert_for_Valor_in_Washington,_D.C._Nov._11,_2014_(2)_(Cropped).jpg" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Album_ArtistId",

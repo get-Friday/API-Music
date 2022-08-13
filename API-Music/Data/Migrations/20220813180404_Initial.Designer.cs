@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Music.Data.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20220812223844_Initial")]
+    [Migration("20220813180404_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,6 +79,16 @@ namespace API_Music.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Artist", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Alias = "Slim shady",
+                            CountryFrom = "United States of America",
+                            Name = "Eminem",
+                            PhotoUrl = "https://en.wikipedia.org/wiki/File:Eminem_-_Concert_for_Valor_in_Washington,_D.C._Nov._11,_2014_(2)_(Cropped).jpg"
+                        });
                 });
 
             modelBuilder.Entity("API_Music.Models.Music", b =>
@@ -128,7 +138,7 @@ namespace API_Music.Data.Migrations
                     b.HasOne("API_Music.Models.Album", "Album")
                         .WithMany("Musics")
                         .HasForeignKey("AlbumId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API_Music.Models.Artist", "Artist")

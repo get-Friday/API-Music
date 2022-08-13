@@ -1,5 +1,4 @@
 ﻿using API_Music.DTOs;
-using API_Music.Api.Repositories;
 using API_Music.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,19 +8,7 @@ namespace API_Music.Controllers
     [Route("api/albums")]
     public class AlbumController : Controller
     {
-        private readonly AlbumRepository _albumRepository;
-        private readonly ArtistRepository _artistRepository;
-        private readonly MusicRepository _musicRepository;
-        public AlbumController(
-            AlbumRepository repository,
-            ArtistRepository artistRepository,
-            MusicRepository musicRepository)
-        {
-            _albumRepository = repository;
-            _artistRepository = artistRepository;
-            _musicRepository = musicRepository;
-        }
-
+       /*
         [HttpGet]
         public ActionResult<List<Album>> Get()
         {
@@ -85,5 +72,6 @@ namespace API_Music.Controllers
 
             return NoContent();
         }
+       */
     }
 }

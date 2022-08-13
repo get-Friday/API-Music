@@ -65,7 +65,8 @@ namespace API_Music.Data
             modelBuilder.Entity<Music>()
                 .HasOne<Album>(m => m.Album)
                 .WithMany(a => a.Musics)
-                .HasForeignKey(m => m.AlbumId);
+                .HasForeignKey(m => m.AlbumId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Album
             modelBuilder.Entity<Album>().ToTable("Album");

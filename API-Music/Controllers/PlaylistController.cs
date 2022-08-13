@@ -1,6 +1,4 @@
-﻿using API_Music.Api.Repositories;
-using API_Music.Models;
-using API_Music.Repositories;
+﻿using API_Music.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Music.Controllers
@@ -9,21 +7,7 @@ namespace API_Music.Controllers
     [Route("api/playlists")]
     public class PlaylistController : Controller
     {
-        private readonly PlaylistRepository _playlistRepository;
-        private readonly AlbumRepository _albumRepository;
-        private readonly ArtistRepository _artistRepository;
-        private readonly MusicRepository _musicRepository;
-        public PlaylistController(
-            PlaylistRepository repository,
-            AlbumRepository albumRepository,
-            ArtistRepository artistRepository,
-            MusicRepository musicRepository)
-        {
-            _playlistRepository = repository;
-            _albumRepository = albumRepository;
-            _artistRepository = artistRepository;
-            _musicRepository = musicRepository;
-        }
+        /*
         [HttpGet]
         public ActionResult<List<Playlist>> Get()
         {
@@ -57,5 +41,6 @@ namespace API_Music.Controllers
 
             return NoContent();
         }
+        */
     }
 }
