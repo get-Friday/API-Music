@@ -23,7 +23,7 @@ namespace API_Music.Controllers
         }
 
         
-        [HttpGet("{idAlbum}/musics")]
+        [HttpGet("{id}/musics")]
         public ActionResult<List<Music>> GetMusicsByAlbumId(
             [FromRoute] int id
         )
@@ -57,7 +57,7 @@ namespace API_Music.Controllers
             return Created("api/albums", album);
         }
         
-        [HttpPut("{idAlbum}")]
+        [HttpPut("{id}")]
         public ActionResult<Album> Put(
             [FromBody] AlbumDTO albumObject,
             [FromRoute] int id
@@ -81,7 +81,7 @@ namespace API_Music.Controllers
             return Ok(album);
         }
         
-        [HttpDelete("{idAlbum}")]
+        [HttpDelete("{id}")]
         public ActionResult Delete(
             [FromRoute] int id
         )
