@@ -22,7 +22,7 @@ namespace API_Music.Controllers
             return Ok(_context.Artists.ToList());
         }
 
-        [HttpGet]
+        [HttpGet("{idArtist}")]
         public ActionResult<Artist> GetById(
             [FromRoute] int id    
         )
@@ -55,7 +55,6 @@ namespace API_Music.Controllers
             };
 
             _context.Artists.Add(artist);
-
             _context.SaveChanges();
 
             return Created("/api/artists", artist);
