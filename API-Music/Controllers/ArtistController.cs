@@ -17,9 +17,27 @@ namespace API_Music.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Artist> Get()
+        public ActionResult<List<Artist>> Get(
+            [FromQuery] string name    
+        )
         {
-            return Ok(_context.Artists.ToList());
+            var query = _context.Artists.AsQueryable();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                var artist = query.Where(a => a.Name.Contains(name));
+
+                if (artist == null) return BadRequest(new FailedReturnViewModel("Nome do artista não encontrado."));
+
+                return artist.ToList();
+            }
+
+            if (!query.ToList().Any())
+            {
+                return NoContent();
+            }
+
+            return Ok(query.ToList());
         }
 
         [HttpGet("{idArtist}")]
@@ -31,7 +49,7 @@ namespace API_Music.Controllers
                 .ToList()
                 .Find(a => a.Id == id);
 
-            if (query == null) return NotFound(new FailedReturnViewModel("Artista não encontrado"));
+            if (query == null) return NotFound(new FailedReturnViewModel("Artista não encontrado."));
 
             return Ok(query);
         }
