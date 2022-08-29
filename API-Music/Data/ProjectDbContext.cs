@@ -28,67 +28,75 @@ namespace API_Music.Data
             base.OnModelCreating(modelBuilder);
 
             // Artist
-            modelBuilder.Entity<Artist>().ToTable("Artist");
-            modelBuilder.Entity<Artist>().HasKey(a => a.Id);
-            modelBuilder.Entity<Artist>()
-                .Property(a => a.Name)
-                .HasMaxLength(60)
-                .IsRequired();
+            modelBuilder.Entity<Artist>(entity =>
+            {
+                entity.ToTable("Artist");
+                entity.HasKey(a => a.Id);
+                entity
+                    .Property(a => a.Name)
+                    .HasMaxLength(60)
+                    .IsRequired();
 
-            modelBuilder.Entity<Artist>()
-                .Property(a => a.Alias)
-                .HasMaxLength(200);
+                entity
+                    .Property(a => a.Alias)
+                    .HasMaxLength(200);
 
-            modelBuilder.Entity<Artist>()
-                .Property(a => a.PhotoUrl);
+                entity
+                    .Property(a => a.PhotoUrl);
 
-            modelBuilder.Entity<Artist>()
-                .Property(a => a.CountryFrom);
+                entity
+                    .Property(a => a.CountryFrom);
+            });
 
             // Music
-            modelBuilder.Entity<Music>().ToTable("Music");
-            modelBuilder.Entity<Music>().HasKey(m => m.Id);
-            modelBuilder.Entity<Music>()
-                .Property(m => m.Name)
-                .HasMaxLength(120)
-                .IsRequired();
+            modelBuilder.Entity<Music>(entity =>
+            {
+                entity.ToTable("Music");
+                entity.HasKey(m => m.Id);
+                entity
+                    .Property(m => m.Name)
+                    .HasMaxLength(120)
+                    .IsRequired();
 
-            modelBuilder.Entity<Music>()
-                .Property(m => m.Duration)
-                .IsRequired();
+                entity
+                    .Property(m => m.Duration)
+                    .IsRequired();
 
-            modelBuilder.Entity<Music>()
-                .HasOne<Artist>(m => m.Artist)
-                .WithMany(a => a.Musics)
-                .HasForeignKey(m => m.ArtistId);
+                entity
+                    .HasOne<Artist>(m => m.Artist)
+                    .WithMany(a => a.Musics)
+                    .HasForeignKey(m => m.ArtistId);
 
-            modelBuilder.Entity<Music>()
-                .HasOne<Album>(m => m.Album)
-                .WithMany(a => a.Musics)
-                .HasForeignKey(m => m.AlbumId)
-                .OnDelete(DeleteBehavior.Restrict);
+                entity
+                    .HasOne<Album>(m => m.Album)
+                    .WithMany(a => a.Musics)
+                    .HasForeignKey(m => m.AlbumId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
 
             // Album
-            modelBuilder.Entity<Album>().ToTable("Album");
-            modelBuilder.Entity<Album>().HasKey(a => a.Id);
-            modelBuilder.Entity<Album>()
-                .Property(a => a.Name)
-                .HasMaxLength(100)
-                .IsRequired();
+            modelBuilder.Entity<Album>(entity =>
+            {
+                entity.ToTable("Album");
+                entity.HasKey(a => a.Id);
+                entity
+                    .Property(a => a.Name)
+                    .HasMaxLength(100)
+                    .IsRequired();
 
-            modelBuilder.Entity<Album>()
-                .Property(a => a.YearLaunch);
+                entity
+                    .Property(a => a.YearLaunch);
 
-            modelBuilder.Entity<Album>()
-                .Property(a => a.CoverUrl);
+                entity
+                    .Property(a => a.CoverUrl);
 
-            modelBuilder.Entity<Album>()
-                .HasOne<Artist>(album => album.Artist)
-                .WithMany(artist => artist.Albums)
-                .HasForeignKey(album => album.ArtistId);
+                entity
+                    .HasOne<Artist>(album => album.Artist)
+                    .WithMany(artist => artist.Albums)
+                    .HasForeignKey(album => album.ArtistId);
 
-            modelBuilder.Entity<Artist>()
-                .HasData(new[] {
+                entity
+                    .HasData(new[] {
                     new Artist
                     {
                         Id = 1,
@@ -97,7 +105,8 @@ namespace API_Music.Data
                         PhotoUrl = "https://en.wikipedia.org/wiki/File:Eminem_-_Concert_for_Valor_in_Washington,_D.C._Nov._11,_2014_(2)_(Cropped).jpg",
                         CountryFrom = "United States of America",
                     }
-                });
+                    });
+            });
         }
     }
 }
