@@ -69,7 +69,7 @@ namespace API_Music.Controllers
 
             if (newMusic.AlbumId.HasValue)
             {
-                music.AlbumId = newMusic.AlbumId ?? 0;
+                music.AlbumId = newMusic.AlbumId;
                 music.Album = _context.Albums.Find(newMusic.AlbumId);
             }
 
@@ -95,7 +95,7 @@ namespace API_Music.Controllers
 
             if (music.AlbumId.HasValue)
             {
-                m.AlbumId = music.AlbumId ?? 0;
+                m.AlbumId = music.AlbumId;
                 m.Album = _context.Albums.Find(music.AlbumId);
             }
 
