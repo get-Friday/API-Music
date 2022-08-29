@@ -25,11 +25,7 @@ namespace API_Music.Controllers
 
             if (!string.IsNullOrEmpty(name))
             {
-                var artist = query.Where(a => a.Name.Contains(name));
-
-                if (artist == null) return BadRequest(new FailedReturnViewModel("Nome do artista não encontrado."));
-
-                return artist.ToList();
+                query = query.Where(a => a.Name.Contains(name));
             }
 
             if (!query.ToList().Any())
@@ -40,7 +36,7 @@ namespace API_Music.Controllers
             return Ok(query.ToList());
         }
 
-        [HttpGet("{idArtist}")]
+        [HttpGet("{id}")]
         public ActionResult<Artist> GetById(
             [FromRoute] int id    
         )
@@ -78,7 +74,7 @@ namespace API_Music.Controllers
             return Created("/api/artists", artist);
         }
 
-        [HttpPut("{idArtist}")]
+        [HttpPut("{id}")]
         public ActionResult<Artist> Put(
             [FromBody] ArtistDTO artist,    
             [FromRoute] int id
@@ -98,7 +94,7 @@ namespace API_Music.Controllers
             return Ok(query);
         }
 
-        [HttpDelete("{idArtist}")]
+        [HttpDelete("{id}")]
         public ActionResult Delete(
             [FromRoute] int id
         )
