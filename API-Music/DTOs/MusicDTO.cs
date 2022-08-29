@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using API_Music.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace API_Music.DTOs
 {
@@ -7,5 +8,7 @@ namespace API_Music.DTOs
         [Required(ErrorMessage = "O nome da música é requerido")]
         public string Name { get; set; }
         public TimeSpan Duration { get; set; }
+        public int? AlbumId { get; set; }
+        public int ArtistId { get; set; }
     }
 }
