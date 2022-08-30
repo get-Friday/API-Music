@@ -40,15 +40,26 @@ namespace API_Music.Controllers
             [FromBody] CreateAlbumDTO albumObject  
         )
         {
+            if (_context.Albums.Any(a => a.ArtistId == albumObject.ArtistId && a.Name == albumObject.Name))
+            {
+                return BadRequest(new FailedReturnViewModel("Album já cadastrado"));
+            }
+
             Artist artist = _context.Artists.Find(albumObject.ArtistId);
 
             if (artist == null) return NotFound(new FailedReturnViewModel("Artista não encontrado"));
 
-            Album album = new (){
+            Album album = new() {
                 Name = albumObject.Name,
                 YearLaunch = albumObject.YearLaunch,
                 CoverUrl = albumObject.CoverUrl,
-                Artist = artist
+                Artist = artist,
+                Musics = albumObject.Musics?.Select(m => new Music
+                {
+                    ArtistId = albumObject.ArtistId,
+                    Name = m.Name,
+                    Duration = m.Duration
+                }).ToList()
             };
 
             _context.Albums.Add(album);
