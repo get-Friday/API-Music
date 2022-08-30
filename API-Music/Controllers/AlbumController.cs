@@ -37,19 +37,19 @@ namespace API_Music.Controllers
         
         [HttpPost]
         public ActionResult<Album> Post(
-            [FromBody] AlbumDTO albumObject  
+            [FromBody] CreateAlbumDTO albumObject  
         )
         {
             Artist artist = _context.Artists.Find(albumObject.ArtistId);
 
             if (artist == null) return NotFound(new FailedReturnViewModel("Artista não encontrado"));
 
-            Album album = new(
-                albumObject.Name,
-                albumObject.YearLaunch,
-                albumObject.CoverUrl,
-                artist
-            );
+            Album album = new (){
+                Name = albumObject.Name,
+                YearLaunch = albumObject.YearLaunch,
+                CoverUrl = albumObject.CoverUrl,
+                Artist = artist
+            };
 
             _context.Albums.Add(album);
             _context.SaveChanges();
@@ -59,14 +59,10 @@ namespace API_Music.Controllers
         
         [HttpPut("{id}")]
         public ActionResult<Album> Put(
-            [FromBody] AlbumDTO albumObject,
+            [FromBody] EditAlbumDTO albumObject,
             [FromRoute] int id
         )
         {
-            Artist artist = _context.Artists.Find(albumObject.ArtistId);
-
-            if (artist == null) return NotFound(new FailedReturnViewModel("Artista não encontrado"));
-
             Album album = _context.Albums.Find(id);
 
             if (album == null) return NotFound(new FailedReturnViewModel("Album não encontrado"));
@@ -74,7 +70,6 @@ namespace API_Music.Controllers
             album.Name = albumObject.Name;
             album.YearLaunch = albumObject.YearLaunch;
             album.CoverUrl = albumObject.CoverUrl;
-            album.Artist = artist;
 
             _context.SaveChanges();
 
