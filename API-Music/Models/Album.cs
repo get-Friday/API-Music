@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace API_Music.Models
+﻿namespace API_Music.Models
 {
     public class Album
     {
@@ -9,18 +7,8 @@ namespace API_Music.Models
         public int YearLaunch { get; set; }
         public string CoverUrl { get; set; }
 
-        public int ArtistId { get; set; }
-        public Artist Artist { get; set; }
-        public List<Music> Musics { get; set; }
-        public Album()
-        {
-        }
-        public Album(string name, int yearLaunch, string coverUrl, Artist artist)
-        {
-            Name = name;
-            YearLaunch = yearLaunch;
-            CoverUrl = coverUrl;
-            Artist = artist;    
-        }
+        public int ArtistId { internal get; set; }
+        public virtual Artist Artist { internal get; set; }
+        public virtual List<Music> Musics { internal get; set; }
     }
 }
