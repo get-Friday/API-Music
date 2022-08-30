@@ -25,7 +25,7 @@ namespace API_Music.Controllers
 
             if (!string.IsNullOrEmpty(name))
             {
-                query = query.Where(a => a.Name.Contains(name));
+                query = query.Where(a => a.Name.Contains(name) || a.Alias.Contains(name));
             }
 
             if (!query.ToList().Any())
