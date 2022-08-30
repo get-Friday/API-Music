@@ -56,7 +56,7 @@ namespace API_Music.Controllers
 
         [HttpPost]
         public ActionResult<Music> Post(
-            [FromBody] MusicDTO newMusic
+            [FromBody] CreateMusicDTO newMusic
         )
         {
             Music music = new() 
@@ -80,7 +80,7 @@ namespace API_Music.Controllers
         }
         [HttpPut("{id}")]
         public ActionResult<Music> Put(
-            [FromBody] MusicDTO music,
+            [FromBody] CreateMusicDTO music,
             [FromRoute] int id
         )
         {
