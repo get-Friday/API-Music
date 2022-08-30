@@ -12,5 +12,6 @@ namespace API_Music.DTOs
         [Required(ErrorMessage = "O artista é obrigatório")]
         [Range(1, int.MaxValue, ErrorMessage = "O ID do artista precisa ser válido")]
         public int ArtistId { get; set; }
+        public List<MusicAlbumDTO> Musics { get; set; }
     }
 }
