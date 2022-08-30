@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Music.Data.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20220813180404_Initial")]
-    partial class Initial
+    [Migration("20220830191755_Seeds")]
+    partial class Seeds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,10 +84,18 @@ namespace API_Music.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Alias = "Slim shady",
+                            Alias = "Eminem",
                             CountryFrom = "United States of America",
-                            Name = "Eminem",
-                            PhotoUrl = "https://en.wikipedia.org/wiki/File:Eminem_-_Concert_for_Valor_in_Washington,_D.C._Nov._11,_2014_(2)_(Cropped).jpg"
+                            Name = "Marshall Bruce Mathers III",
+                            PhotoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Eminem_-_Concert_for_Valor_in_Washington%2C_D.C._Nov._11%2C_2014_%282%29_%28Cropped%29.jpg/220px-Eminem_-_Concert_for_Valor_in_Washington%2C_D.C._Nov._11%2C_2014_%282%29_%28Cropped%29.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Alias = "Snoop Dogg",
+                            CountryFrom = "United States of America",
+                            Name = "Calvin Cordozar Broadus Jr.",
+                            PhotoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Snoop_Dogg_2019_by_Glenn_Francis.jpg/220px-Snoop_Dogg_2019_by_Glenn_Francis.jpg"
                         });
                 });
 
@@ -99,7 +107,7 @@ namespace API_Music.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AlbumId")
+                    b.Property<int?>("AlbumId")
                         .HasColumnType("int");
 
                     b.Property<int>("ArtistId")
@@ -138,8 +146,7 @@ namespace API_Music.Data.Migrations
                     b.HasOne("API_Music.Models.Album", "Album")
                         .WithMany("Musics")
                         .HasForeignKey("AlbumId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("API_Music.Models.Artist", "Artist")
                         .WithMany("Musics")

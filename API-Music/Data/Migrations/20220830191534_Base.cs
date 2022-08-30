@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API_Music.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Base : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,10 +31,10 @@ namespace API_Music.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ArtistId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     YearLaunch = table.Column<int>(type: "int", nullable: false),
-                    CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArtistId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,10 +53,10 @@ namespace API_Music.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ArtistId = table.Column<int>(type: "int", nullable: false),
-                    AlbumId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "time", nullable: false)
+                    Duration = table.Column<TimeSpan>(type: "time", nullable: false),
+                    AlbumId = table.Column<int>(type: "int", nullable: true),
+                    ArtistId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,11 +74,6 @@ namespace API_Music.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Artist",
-                columns: new[] { "Id", "Alias", "CountryFrom", "Name", "PhotoUrl" },
-                values: new object[] { 1, "Slim shady", "United States of America", "Eminem", "https://en.wikipedia.org/wiki/File:Eminem_-_Concert_for_Valor_in_Washington,_D.C._Nov._11,_2014_(2)_(Cropped).jpg" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Album_ArtistId",

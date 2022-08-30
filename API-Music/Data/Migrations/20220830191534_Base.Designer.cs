@@ -4,6 +4,7 @@ using API_Music.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Music.Data.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    partial class ProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220830191534_Base")]
+    partial class Base
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,24 +79,6 @@ namespace API_Music.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Artist", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Alias = "Eminem",
-                            CountryFrom = "United States of America",
-                            Name = "Marshall Bruce Mathers III",
-                            PhotoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Eminem_-_Concert_for_Valor_in_Washington%2C_D.C._Nov._11%2C_2014_%282%29_%28Cropped%29.jpg/220px-Eminem_-_Concert_for_Valor_in_Washington%2C_D.C._Nov._11%2C_2014_%282%29_%28Cropped%29.jpg"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Alias = "Snoop Dogg",
-                            CountryFrom = "United States of America",
-                            Name = "Calvin Cordozar Broadus Jr.",
-                            PhotoUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Snoop_Dogg_2019_by_Glenn_Francis.jpg/220px-Snoop_Dogg_2019_by_Glenn_Francis.jpg"
-                        });
                 });
 
             modelBuilder.Entity("API_Music.Models.Music", b =>
