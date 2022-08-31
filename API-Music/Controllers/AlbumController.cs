@@ -28,13 +28,11 @@ namespace API_Music.Controllers
             [FromRoute] int id
         )
         {
-            Album album = _context.Albums.Find(id);
+            Album query = _context.Albums.Find(id);
 
-            if (album == null) return NotFound(new FailedReturnViewModel("Album não encontrado"));
+            if (query == null) return NotFound(new FailedReturnViewModel("Album não encontrado"));
 
-            List<Music> musics = _context.Musics.Where(m => m.AlbumId == id).ToList();
-
-            return Ok(musics);
+            return Ok(query.Musics.ToList());
         }
         
         [HttpPost]
@@ -58,9 +56,9 @@ namespace API_Music.Controllers
                 Artist = artist,
                 Musics = albumObject.Musics?.Select(m => new Music
                 {
+                    ArtistId = albumObject.ArtistId,
                     Name = m.Name,
-                    Duration = m.Duration,
-                    ArtistId = albumObject.ArtistId
+                    Duration = m.Duration
                 }).ToList()
             };
 
