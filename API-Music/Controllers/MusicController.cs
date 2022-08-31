@@ -64,14 +64,8 @@ namespace API_Music.Controllers
                 Name = newMusic.Name,
                 Duration = newMusic.Duration,
                 ArtistId = newMusic.ArtistId,
-                Artist = _context.Artists.Find(newMusic.ArtistId)
+                AlbumId = newMusic.AlbumId
             };
-
-            if (newMusic.AlbumId.HasValue)
-            {
-                music.AlbumId = newMusic.AlbumId;
-                music.Album = _context.Albums.Find(newMusic.AlbumId);
-            }
 
             _context.Musics.Add(music);
             _context.SaveChanges();
